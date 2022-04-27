@@ -20,6 +20,7 @@
 		.show-camera .open-camera { display: none; }
 		.show-camera .photo { display: none; }
 		body:not(.show-camera) .take-photo { display: none; }
+		body:not(.show-camera) .flip-camera { display: none; }
 	</style>
 </head>
 
@@ -27,6 +28,7 @@
 	<div>
 		<button onclick="OpenCamera()" class="open-camera">Kamerayı Aç</button>
 		<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
+		<button onclick="webcam.flip()" class="flip-camera">Kamera Değiştir</button>
 	</div>
 
 	<br />
