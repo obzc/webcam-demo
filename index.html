@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Web Kamera Örneği</title>
+	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+
+	<style>
+		.camera-feed, .photo {
+			width: 100%;
+			max-width: 640px;
+			height: 100%;
+		}
+
+		.show-photo .take-photo { display: none; }
+		.show-photo .camera-feed { display: none; }
+		.show-camera .open-camera { display: none; }
+		.show-camera .photo { display: none; }
+		body:not(.show-camera) .take-photo { display: none; }
+	</style>
+</head>
+
+<body>
+	<div>
+		<button onclick="OpenCamera()" class="open-camera">Kamerayı Aç</button>
+		<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
+	</div>
+
+	<br />
+
+	<video id="webcam" autoplay playsinline class="camera-feed"></video>
+	<canvas id="canvas" class="photo"></canvas>
+</body>
+
+<script>
+	const webcamElement = document.getElementById('webcam');
+	const canvasElement = document.getElementById('canvas');
+	const snapSoundElement = document.getElementById('snapSound');
+	const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+
+	function OpenCamera() {
+		webcam.start();
+
+		document.body.classList.remove("show-photo");
+		document.body.classList.add("show-camera");
+	}
+
+	function TakePhoto() {
+		const picture = webcam.snap();
+		webcam.stop();
+
+		document.body.classList.add("show-photo");
+		document.body.classList.remove("show-camera");
+	}
+</script>
+
+</html>
