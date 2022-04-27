@@ -28,7 +28,7 @@
 	<div>
 		<button onclick="OpenCamera()" class="open-camera">Kamerayı Aç</button>
 		<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
-		<button onclick="webcam.flip()" class="flip-camera">Kamera Değiştir</button>
+		<button onclick="FlipCamera()" class="flip-camera">Kamera Değiştir</button>
 	</div>
 
 	<br />
@@ -48,6 +48,11 @@
 
 		document.body.classList.remove("show-photo");
 		document.body.classList.add("show-camera");
+	}
+
+	function FlipCamera() {
+		webcam.flip();
+		webcam.start();
 	}
 
 	function TakePhoto() {
