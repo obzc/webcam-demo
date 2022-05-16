@@ -8,6 +8,7 @@
 
 	<title>Web Kamera Örneği</title>
 	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+	<script type="text/javascript" src="crop.js"></script>
 
 	<style>
 		body {
@@ -77,6 +78,8 @@
 	</div>
 
 	<canvas id="canvas" class="photo"></canvas>
+	<hr>
+	<img id="cropped" src="" alt="">
 </body>
 
 <script>
@@ -99,10 +102,36 @@
 
 	function TakePhoto() {
 		const picture = webcam.snap();
+		console.log("Crop Clicked");
+		croppedImageString = document.getElementById('croppedImageTextBox');
+
+		getImageDimensions(picture).then(offsets => {
+			var width = offsets.w;
+			var height = offsets.w / 1.75;
+			let xstart = (2 * document.documentElement.clientWidth / 100) + (2 * document.documentElement.clientWidth / 100);
+			let ystart = 10;
+			cropImage(picture, width, height, xstart, ystart, (imgUri) => {
+
+				document.getElementById('cropped').src = imgUri;
+			});
+
+		})
+
+
 		webcam.stop();
 
 		document.body.classList.add("show-photo");
 		document.body.classList.remove("show-camera");
+	}
+
+	function getImageDimensions(file) {
+		return new Promise(function (resolved, rejected) {
+			var i = new Image()
+			i.onload = function () {
+				resolved({ w: i.width, h: i.height })
+			};
+			i.src = file
+		})
 	}
 </script>
 
