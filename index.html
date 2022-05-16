@@ -5,10 +5,16 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 	<title>Web Kamera Örneği</title>
 	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
 		.camera-feed,
 		.photo {
 			position: relative;
@@ -52,6 +58,7 @@
 
 	<video id="webcam" autoplay playsinline class="camera-feed"></video>
 	<canvas id="canvas" class="photo"></canvas>
+	<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
 </body>
 
 <script>
