@@ -10,37 +10,11 @@
 	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 	<style>
-		body {
-			padding: 0;
-			margin: 0;
-		}
-
-		.open-camera,
-		.take-photo,
-		.flip-camera {
-			position: absolute;
-			z-index: 2;
-		}
-
-		.take-photo {
-			left: 10%
-		}
-
-		.flip-camera {
-			left: 20%
-		}
-
 		.camera-feed,
 		.photo {
-			position: fixed;
-			width: 100vw;
-			height: calc(100vw / 1.75);
-			left: 0;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			object-position: top right;
-			object-fit: scale-down;
+			width: 100%;
+			max-width: 640px;
+			height: 100%;
 		}
 
 		.show-photo .take-photo {
@@ -66,6 +40,26 @@
 		body:not(.show-camera) .flip-camera {
 			display: none;
 		}
+
+		.camera-wrapper {
+			position: relative;
+
+			max-width: 640px;
+
+		}
+
+		.camera-wrapper::after {
+			content: "";
+			position: absolute;
+			width: 640px;
+			height: calc(640px / 1.75);
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			z-index: 2;
+			box-shadow: inset 0 0 0 90px rgb(0 0 0 / 61%);
+		}
 	</style>
 </head>
 
@@ -76,7 +70,10 @@
 		<button onclick="FlipCamera()" class="flip-camera">Kamera Değiştir</button>
 	</div>
 
-	<video id="webcam" autoplay playsinline class="camera-feed"></video>
+	<div class="camera-wrapper">
+		<video id="webcam" autoplay playsinline class="camera-feed"></video>
+	</div>
+
 	<canvas id="canvas" class="photo"></canvas>
 	<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
 </body>
