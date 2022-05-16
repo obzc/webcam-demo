@@ -9,18 +9,37 @@
 	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 	<style>
-		.camera-feed, .photo {
-			width: 100%;
-			max-width: 640px;
-			height: 100%;
+		.camera-feed,
+		.photo {
+			position: relative;
+			height: 80vh;
+			width: calc(80vh * 1.75);
+			object-fit: cover;
 		}
 
-		.show-photo .take-photo { display: none; }
-		.show-photo .camera-feed { display: none; }
-		.show-camera .open-camera { display: none; }
-		.show-camera .photo { display: none; }
-		body:not(.show-camera) .take-photo { display: none; }
-		body:not(.show-camera) .flip-camera { display: none; }
+		.show-photo .take-photo {
+			display: none;
+		}
+
+		.show-photo .camera-feed {
+			display: none;
+		}
+
+		.show-camera .open-camera {
+			display: none;
+		}
+
+		.show-camera .photo {
+			display: none;
+		}
+
+		body:not(.show-camera) .take-photo {
+			display: none;
+		}
+
+		body:not(.show-camera) .flip-camera {
+			display: none;
+		}
 	</style>
 </head>
 
@@ -30,8 +49,6 @@
 		<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
 		<button onclick="FlipCamera()" class="flip-camera">Kamera Değiştir</button>
 	</div>
-
-	<br />
 
 	<video id="webcam" autoplay playsinline class="camera-feed"></video>
 	<canvas id="canvas" class="photo"></canvas>
