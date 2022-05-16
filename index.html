@@ -15,12 +15,31 @@
 			margin: 0;
 		}
 
+		.open-camera,
+		.take-photo,
+		.flip-camera {
+			position: absolute;
+			z-index: 2;
+		}
+
+		.take-photo {
+			left: 10%
+		}
+
+		.flip-camera {
+			left: 20%
+		}
+
 		.camera-feed,
 		.photo {
-			position: relative;
-			height: 80vh;
-			width: calc(80vh * 1.75);
-			object-fit: cover;
+			position: fixed;
+			width: 100vw;
+			height: calc(100vw / 1.75);
+			object-fit: fill;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
 		}
 
 		.show-photo .take-photo {
