@@ -10,11 +10,15 @@
 	<script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
 
 	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+
 		.camera-feed,
 		.photo {
-			width: 100%;
-			max-width: 640px;
-			height: 100%;
+			width: 100vw;
+			height: auto;
 		}
 
 		.show-photo .take-photo {
@@ -43,22 +47,20 @@
 
 		.camera-wrapper {
 			position: relative;
-
-			max-width: 640px;
-
+			width: 100vw;
 		}
 
-		.camera-wrapper::after {
+		.show-camera .camera-wrapper::after {
 			content: "";
 			position: absolute;
-			width: 640px;
-			height: calc(640px / 1.75);
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
+			width: 96vw;
+			height: calc(100vw / 1.75);
+			left: 2vw;
+			right: 2vw;
+			top: 2vw;
+			bottom: 2vw;
 			z-index: 2;
-			box-shadow: inset 0 0 0 90px rgb(0 0 0 / 61%);
+			box-shadow: inset 0 0 0 2vw rgb(0 0 0 / 61%);
 		}
 	</style>
 </head>
@@ -75,7 +77,6 @@
 	</div>
 
 	<canvas id="canvas" class="photo"></canvas>
-	<button onclick="TakePhoto()" class="take-photo">Fotoğraf Çek</button>
 </body>
 
 <script>
