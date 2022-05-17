@@ -69,6 +69,14 @@
 			box-shadow: inset 0 0 0 2vw rgb(0 0 0 / 61%);
 		}
 
+		.show-photo .photo {
+			display: none;
+		}
+
+		.show-camera .result {
+			display: none;
+		}
+
 		@media (orientation: portrait) {
 
 			.camera-feed,
@@ -91,17 +99,12 @@
 <body>
 	<div class="row  justify-content-md-center">
 		<div class="col-md-6">
-
-			<button onclick="TakePhoto()" class="btn btn-block btn-primary take-photo m-0">Fotoğraf Çek</button>
-			<button onclick="OpenCamera()" class="btn btn-block btn-primary open-camera m-0">Kamerayı Aç</button>
+			<button onclick="TakePhoto()" class="btn btn-block btn-primary take-photo m-0">FOTOĞRAF ÇEK</button>
+			<button onclick="OpenCamera()" class="btn btn-block btn-primary open-camera m-0">YENİDEN ÇEK</button>
 		</div>
 		<div class="col-md-6">
-			<button onclick="FlipCamera()" class="btn btn-block btn-primary flip-camera m-0">Kamera
-				Değiştir</button>
+			<button onclick="FlipCamera()" class="btn btn-block btn-primary flip-camera m-0">KAMERA DEĞİŞTİR</button>
 		</div>
-
-
-
 	</div>
 
 	<div class="camera-wrapper">
@@ -109,9 +112,23 @@
 	</div>
 
 	<canvas id="canvas" class="photo"></canvas>
-	<div class="result d-block text-center d-none">
-		<hr>
-		<img id="cropped" src="" alt="">
+	<div class="result text-center" style="display: none">
+		<div class="row">
+			<div class="col-md-12">
+				<img id="cropped" src="" alt="">
+			</div>
+		</div>
+		<div class="row justify-content-center mt-3">
+			<div class="col-md-6">
+				<div class="form-group">
+					<textarea placeholder="Açıklama giriniz" name="notes" id="notes" class="form-control" cols="30"
+						rows="10"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-center mt-3">
+			<div class="btn btn-primary" onclick="submitForm()">GÖNDER</div>
+		</div>
 	</div>
 
 </body>
@@ -137,11 +154,9 @@
 
 	function TakePhoto() {
 		const picture = webcam.snap();
-		console.log("Crop Clicked");
 		croppedImageString = document.getElementById('croppedImageTextBox');
 
 		getImageDimensions(picture).then(offsets => {
-			console.log(calculateVw(2));
 			var width = offsets.w - calculateVw(4);
 			var height = (offsets.w - calculateVw(2)) / 1.75;
 			let xstart = calculateVw(2);
@@ -152,9 +167,7 @@
 			});
 
 		})
-
 		webcam.stop();
-
 		document.body.classList.add("show-photo");
 		document.body.classList.remove("show-camera");
 	}
@@ -171,6 +184,22 @@
 			};
 			i.src = file
 		})
+	}
+
+	function submitForm() {
+		let postData = {
+			image: document.getElementById("cropped").src,
+			notes: document.getElementById("notes").value
+		}
+
+		console.log(postData);
+
+		OpenCamera();
+		clearForm()
+	}
+
+	function clearForm() {
+		document.getElementById("notes").value = ""
 	}
 
 	document.addEventListener("DOMContentLoaded", function (event) {
